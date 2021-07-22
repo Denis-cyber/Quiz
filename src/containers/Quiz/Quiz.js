@@ -37,7 +37,7 @@ class Quiz extends Component {
 
   onAnswerClickHandler = (answerId) => {
     if (this.state.answerState) {
-      const key = Object.keys(this.state.answerState);
+      const key = Object.keys(this.state.answerState)[0];
       if (this.state.answerState[key] === 'success') {
         return;
       }
@@ -48,7 +48,7 @@ class Quiz extends Component {
 
     if (question.rightAnswerId === answerId) {
       if (!results[question.id]) {
-        results[answerId] = 'success';
+        results[question.id] = 'success';
       }
 
       this.setState({
