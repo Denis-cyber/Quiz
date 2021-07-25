@@ -46,6 +46,18 @@ class Quiz extends Component {
     const question = this.state.quiz[this.state.activeQuestion];
     const results = this.state.results;
 
+    const timeout = window.setTimeout(() => {
+      if (this.isQuizFinished()) {
+        this.setState({ isFinished: true });
+      } else {
+        this.setState({
+          activeQuestion: this.state.activeQuestion + 1,
+          answerState: null,
+        });
+      }
+      window.clearTimeout(timeout);
+    }, 1000);
+
     if (question.rightAnswerId === answerId) {
       if (!results[question.id]) {
         results[question.id] = 'success';
@@ -55,18 +67,6 @@ class Quiz extends Component {
         answerState: { [answerId]: 'success' },
         results,
       });
-
-      const timeout = window.setTimeout(() => {
-        if (this.isQuizFinished()) {
-          this.setState({ isFinished: true });
-        } else {
-          this.setState({
-            activeQuestion: this.state.activeQuestion + 1,
-            answerState: null,
-          });
-        }
-        window.clearTimeout(timeout);
-      }, 1000);
     } else {
       results[question.id] = 'error';
       this.setState({
