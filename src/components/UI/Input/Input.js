@@ -14,6 +14,8 @@ const Input = (props) => {
     cls.push(classes.invalid);
   }
 
+  console.log('===>>>', isInvalid(props));
+
   return (
     <div className={cls.join(' ')}>
       <label htmlFor={htmlFor}>{props.label}</label>
