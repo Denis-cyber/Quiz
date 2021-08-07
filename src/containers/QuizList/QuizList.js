@@ -4,21 +4,43 @@ import axios from 'axios';
 import classes from './QuizList.module.css';
 
 export default class QuizList extends Component {
+  state = {
+    quizes: [],
+  };
+
   renderQuizes() {
-    return [1, 2, 3].map((quiz, index) => {
+    return this.state.quizes.map((quiz) => {
       return (
-        <li key={index}>
-          <NavLink to={'/quiz/' + quiz}>Тест {quiz}</NavLink>
+        <li key={quiz.id}>
+          <NavLink to={'/quiz/' + quiz.id}>{quiz.name}</NavLink>
         </li>
       );
     });
   }
 
-  componentDidMount() {
-    axios
-      .get('https://quiz-528d7-default-rtdb.firebaseio.com/quiz.json')
-      .then((response) => console.log('response', response));
+  async componentDidMount() {
+    try {
+      const response = await axios.get(
+        'https://quiz-d97a8-default-rtdb.firebaseio.com/quizes.json'
+      );
+
+      const quizes = [];
+
+      Object.keys(response.data).forEach((key, index) => {
+        quizes.push({
+          id: key,
+          name: `Test N${index + 1}`,
+        });
+      });
+
+      this.setState({
+        quizes,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
+
   render() {
     return (
       <div className={classes.QuizList}>
