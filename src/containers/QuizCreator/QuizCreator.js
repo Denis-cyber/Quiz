@@ -8,6 +8,7 @@ import {
   validateForm,
 } from '../../form/formFramework';
 import Auxiliary from '../../hoc/Auxiliary/Auxiliary';
+import axios from 'axios';
 import classes from './QuizCreator.module.css';
 
 function createOptionControl(number) {
@@ -80,10 +81,24 @@ export default class QuizCreator extends Component {
     });
   };
 
-  createQuizHandler = (event) => {
+  createQuizHandler = async (event) => {
     event.preventDefault();
-    console.log(this.state.quiz);
-    // TODO: Server
+
+    try {
+      await axios.post(
+        'https://quiz-528d7-default-rtdb.firebaseio.com/quizes.json',
+        this.state.quiz
+      );
+
+      this.setState({
+        quiz: [],
+        isFormValid: false,
+        rightAnswerId: 1,
+        formControls: createFormControls(),
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   changeHandler = (value, controlName) => {
