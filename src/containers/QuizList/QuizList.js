@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 import classes from './QuizList.module.css';
 
 export default class QuizList extends Component {
@@ -13,6 +14,11 @@ export default class QuizList extends Component {
     });
   }
 
+  componentDidMount() {
+    axios
+      .get('https://quiz-528d7-default-rtdb.firebaseio.com/quiz.json')
+      .then((response) => console.log('response', response));
+  }
   render() {
     return (
       <div className={classes.QuizList}>
