@@ -73,3 +73,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 acc: ...17@gmail.com
 project: Quiz
+
+user on project:
+wfm@mail.ru
+123456
